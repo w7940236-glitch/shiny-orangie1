@@ -1,38 +1,211 @@
 <!doctype html>
-<html lang="zh">
+<html lang="zh-CN">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>orangie - 个人主页</title>
+    <title>orangie - 可爱橙子主题</title>
+    <meta name="description" content="orangie 的个人主页 — 可爱橙子主题演示。">
+    <!-- 简单 SVG favicon（橙子） -->
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%23FF8C42'/%3E%3Cpath d='M62 20c6-3 10-2 12 0' stroke='%233A6B2E' stroke-width='3' fill='none' stroke-linecap='round'/%3E%3C/svg%3E" />
     <style>
-      body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial; line-height:1.6; padding:24px; max-width:900px; margin:auto; }
-      header { margin-bottom:18px; }
-      h1 { margin:0 0 8px 0; }
+      :root{
+        --bg:#FFF8F0;
+        --card:#fff;
+        --orange:#FF8C42;
+        --orange-2:#FFB07A;
+        --text:#3a2e2a;
+        --muted:#7a6b62;
+        --glass: rgba(255,255,255,0.6);
+      }
+      *{box-sizing:border-box}
+      html,body{height:100%}
+      body{
+        margin:0;
+        font-family: Inter, "Helvetica Neue", Arial, "PingFang SC", "Noto Sans SC", sans-serif;
+        background:
+          radial-gradient(circle at 10% 10%, rgba(255,196,140,0.25), transparent 10%),
+          linear-gradient(180deg, var(--bg), #FFF);
+        color:var(--text);
+        -webkit-font-smoothing:antialiased;
+        line-height:1.5;
+        padding:28px;
+      }
+
+      .container{
+        max-width:1000px;
+        margin:0 auto;
+      }
+
+      header{
+        display:flex;
+        gap:20px;
+        align-items:center;
+        margin-bottom:22px;
+      }
+
+      /* 橙子插画区 */
+      .hero-illustration{
+        width:108px;
+        height:108px;
+        flex:0 0 108px;
+        background: linear-gradient(135deg,var(--orange),var(--orange-2));
+        border-radius:999px;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        box-shadow: 0 8px 18px rgba(255,140,66,0.18), inset 0 -6px 12px rgba(0,0,0,0.06);
+        transform-origin:center;
+        animation: float 4s ease-in-out infinite;
+      }
+
+      @keyframes float {
+        0% { transform: translateY(0) rotate(-2deg); }
+        50% { transform: translateY(-8px) rotate(2deg); }
+        100% { transform: translateY(0) rotate(-2deg); }
+      }
+
+      .hero-title h1{
+        margin:0;
+        font-size:clamp(22px,4vw,36px);
+        letter-spacing: -0.5px;
+      }
+      .hero-title p { margin:6px 0 0 0; color:var(--muted) }
+
+      /* 操作按钮 */
+      .btn {
+        display:inline-block;
+        padding:10px 16px;
+        background: linear-gradient(180deg, #FF9B5A, #FF7A2E);
+        color:white;
+        border-radius:999px;
+        text-decoration:none;
+        box-shadow: 0 6px 14px rgba(255,122,46,0.18);
+        font-weight:600;
+      }
+
+      main{
+        display:grid;
+        grid-template-columns: 1fr 320px;
+        gap:20px;
+        align-items:start;
+      }
+
+      /* 卡片风格 */
+      .card{
+        background:var(--card);
+        border-radius:12px;
+        padding:18px;
+        box-shadow: 0 6px 18px rgba(60,40,20,0.06);
+      }
+
+      .about p { color:var(--muted); margin:0 0 12px 0; }
+
+      .projects ul{
+        list-style:none;
+        padding:0;
+        margin:0;
+        display:flex;
+        flex-direction:column;
+        gap:12px;
+      }
+
+      .project-item{
+        display:flex;
+        gap:12px;
+        align-items:center;
+        padding:10px;
+        border-radius:10px;
+        background: linear-gradient(180deg, rgba(255,248,240,0.6), rgba(255,248,240,0.9));
+      }
+
+      .project-thumb{
+        width:56px; height:56px; border-radius:10px;
+        background:linear-gradient(135deg,var(--orange-2),var(--orange));
+        display:flex;align-items:center;justify-content:center;
+        color:white;font-weight:700;
+        box-shadow:0 6px 12px rgba(255,140,66,0.12);
+      }
+
+      aside .card + .card { margin-top:16px; }
+
+      footer { margin-top:28px; color:var(--muted); font-size:14px; text-align:center; }
+
+      /* 响应式 */
+      @media (max-width:880px){
+        main{ grid-template-columns: 1fr; }
+        .hero-illustration{ width:88px; height:88px; flex:0 0 88px; }
+      }
     </style>
   </head>
   <body>
-    <header>
-      <h1>你好，我是 orangie</h1>
-      <p>欢迎来到我的个人网站。这里可以写一句简介或放置联系信息。</p>
-    </header>
+    <div class="container">
+      <header>
+        <div class="hero-illustration" aria-hidden="true">
+          <!-- 可爱的橙子 SVG（简化） -->
+          <svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="orange">
+            <circle cx="32" cy="32" r="26" fill="#FFB07A"/>
+            <circle cx="24" cy="24" r="4" fill="rgba(255,255,255,0.35)"/>
+            <path d="M42 12c2-2 6-3 8-2" stroke="#3A6B2E" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+            <path d="M36 11c-2-3-6-4-9-2" stroke="#3A6B2E" stroke-width="2.5" stroke-linecap="round" fill="none" transform="translate(0,2)"/>
+          </svg>
+        </div>
 
-    <main>
-      <section>
-        <h2>关于我</h2>
-        <p>嗨！我是orangie</p>
-      </section>
+        <div class="hero-title">
+          <h1>你好，我是 orangie</h1>
+          <p>喜欢橙子的前端爱好者 · 小实验 & 小项目</p>
+          <p style="margin-top:10px">
+            <a class="btn" href="#projects">查看项目</a>
+          </p>
+        </div>
+      </header>
 
-      <section>
-        <h2>项目</h2>
-        <ul>
-          <li><a href="#">项目 A</a></li>
-          <li><a href="#">项目 B</a></li>
-        </ul>
-      </section>
-    </main>
+      <main>
+        <section>
+          <div class="card about" role="region" aria-labelledby="about-title">
+            <h2 id="about-title">关于我</h2>
+            <p>嗨！我是 orangie。我喜欢做小网站、做 UI 动画、写点前端玩具。如果想联系我可以通过下面的方式。</p>
+            <p><strong>技能：</strong>HTML / CSS / JavaScript / 小实验</p>
+          </div>
 
-    <footer>
-      <p>© 2026 orangie</p>
-    </footer>
+          <div class="card projects" id="projects" style="margin-top:16px">
+            <h2>项目</h2>
+            <ul>
+              <li class="project-item">
+                <div class="project-thumb">A</div>
+                <div>
+                  <strong>项目 A</strong>
+                  <div style="color:var(--muted); font-size:13px">小演示：交互式按钮</div>
+                </div>
+              </li>
+
+              <li class="project-item">
+                <div class="project-thumb">B</div>
+                <div>
+                  <strong>项目 B</strong>
+                  <div style="color:var(--muted); font-size:13px">实验：CSS 橙子动画</div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <aside>
+          <div class="card">
+            <h3>联系我</h3>
+            <p style="margin:8px 0 12px 0">邮箱：<a href="mailto:orangie@example.com">orangie@example.com</a></p>
+            <p style="margin:0"><a href="#" style="color:var(--orange)">关注我的 GitHub</a></p>
+          </div>
+
+          <div class="card" style="margin-top:12px">
+            <h4>小说明</h4>
+            <p style="color:var(--muted); margin:8px 0 0 0; font-size:14px">该主题使用纯 CSS + 内联 SVG，便于快速部署与修改。</p>
+          </div>
+        </aside>
+      </main>
+
+      <footer>
+        <p>© 2026 orangie · 做一个可爱的小橙子</p>
+      </footer>
+    </div>
   </body>
 </html>
